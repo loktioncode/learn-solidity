@@ -1,6 +1,7 @@
 ragma solidity >=0.5.0 <0.6.0;
+import "./ownable.sol";
 
-contract ZombieFactory {
+contract ZombieFactory is Ownable {
 
     // declare our event
     //can be used to see if function fired by dapp
@@ -12,6 +13,9 @@ contract ZombieFactory {
     struct Zombie {
         string name;
         uint dna;
+        //save gas
+        uint32 level;
+        uint32 readyTime;
     }
 
     Zombie[] public zombies;
