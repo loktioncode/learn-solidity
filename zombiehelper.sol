@@ -36,13 +36,17 @@ contract ZombieHelper is ZombieFeeding {
     
     //update name of zombie if level is 2
     //we use the modifier to do so
-    function changeName(uint _zombieId, string calldata _newName) external aboveLevel(2, _zombieId) {
-        require(msg.sender == zombieToOwner[_zombieId]);
+    //use ownerOf modifier to check owner of zombie
+    function changeName(uint _zombieId, string calldata _newName) external aboveLevel(2, _zombieId) ownerOf(_zombieId) {
+        // require(msg.sender == zombieToOwner[_zombieId]);
         zombies[_zombieId].name = _newName;
     }
 
-    function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) {
-        require(msg.sender == zombieToOwner[_zombieId]);
+    //use ownerOf modifier to check owner of zombie
+    //we have two modifiers aboveLevel and ownerOf
+    //aboveLevel is used to check if the zombie is above/higher than the level and update Zombie DNA
+    function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) ownerOf(_zombieId) {
+        // require(msg.sender == zombieToOwner[_zombieId]);
         zombies[_zombieId].dna = _newDna;
     }
     

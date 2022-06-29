@@ -24,6 +24,12 @@ contract ZombieFeeding is ZombieFactory {
     //declare interface to external contract
     KittyInterface kittyContract;
 
+    //modifier to check owner of Zombie
+    modifier ownerOf(uint _zombieId) {
+        require(msg.sender == zombieToOwner[_zombieId]);
+        _;
+    }
+
     //setting the kitty contract address dynamically
     function setKittyContractAddress(address _address) external {
         kittyContract = KittyInterface(_address);
@@ -42,13 +48,9 @@ contract ZombieFeeding is ZombieFactory {
     }
 
     //MADE IT INTERNAL SO IT CANT BE USED OUTSIDE OF THIS CONTRACT
-    function feedAndMultiply(
-        uint _zombieId,
-        uint _targetDna,
-        string memory _species
-    ) internal {
+    //has modifier to check owner of Zombie
+    function feedAndMultiply(uint _zombieId, uint _targetDna, string memory _species) internal ownerOf(_zombieId) {
 
-        require(msg.sender == zombieToOwner[_zombieId]);
         Zombie storage myZombie = zombies[_zombieId];
 
         //CHECK IF ZOMBIE IS READY TO EAT
@@ -57,12 +59,10 @@ contract ZombieFeeding is ZombieFactory {
         _targetDna = _targetDna % dnaModulus;
         uint newDna = (myZombie.dna + _targetDna) / 2;
 
-        if (
-            keccak256(abi.encodePacked(_species)) ==
-            keccak256(abi.encodePacked("kitty"))
-        ) {
+        if ( keccak256(abi.encodePacked(_species)) == keccak256(abi.encodePacked("kitty"))) {
             newDna = newDna - (newDna % 100) + 99;
         }
+
         //create new mutated zombie
         _createZombie("NoName", newDna);
 
