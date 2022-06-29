@@ -1,4 +1,4 @@
-# learn-solidity by Building Zombie Game 
+# Learning by Building Zombie Game 
 ## Variables
 ## Memory & Storage
 ## Structs
@@ -7,5 +7,7 @@
 ## Inheritance
 ## OOP in solidity
 ## Type casting
-# Internal and External functions
-# View and Pure Modifies
+## Internal and External functions
+## View and Pure Modifies
+## Import externa contracts
+## Save Gas with View functions
