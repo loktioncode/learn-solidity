@@ -1,7 +1,7 @@
 //making our own modifier that uses
 //the zombie level property to restrict access to special abilities.
 
-pragma solidity >=0.5.0 <0.6.0;
+pragma solidity >=0.4.22 <0.9.0;
 
 import "./advanced-zombie-feeding.sol";
 
