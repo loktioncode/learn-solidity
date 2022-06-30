@@ -3,7 +3,7 @@
 
 pragma solidity >=0.4.22 <0.9.0;
 
-import "./advanced-zombie-feeding.sol";
+import "./zombie-feeding.sol";
 
 contract ZombieHelper is ZombieFeeding {
 
@@ -13,7 +13,9 @@ contract ZombieHelper is ZombieFeeding {
     function levelUp(uint _zombieId) external payable {
         //checks if sent eth is enough
         require(msg.value == levelUpFee);
-        zombies[_zombieId].level++;
+        // zombies[_zombieId].level++; (avoid overflow in our code)
+        zombies[_zombieId].level = zombies[_zombieId].level.add(1);
+
     }
 
      // 1. Create withdraw function here
@@ -65,7 +67,9 @@ contract ZombieHelper is ZombieFeeding {
                 //add zombie at position counter to result array
                 result[counter] = index;
                 //move index position to next in result array
-                counter++;
+                // counter++;
+                counter = counter.add(1);
+
             }
         }
         // Start here
