@@ -2,13 +2,16 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "./zombieattack.sol";
 import "./erc721.sol";
+import "./safemath.sol";
 
 
-//to allow zombies to be tranfered as tokens
-//check token ownership
-//transfer tokens to new owner
-//verify token ownership before transacting
+/// @title A contract that manages transfering zombie ownership as tokens
+/// @author Elisha Bere
+/// @dev Compliant with OpenZeppelin's implementation of the ERC721 spec draft
+
 contract ZombieOwnership is ZombieAttack, ERC721 {
+  /// @notice verify token ownership before transacting
+  /// @notice check token ownership [if sender/approver is owner]
 
   // mapping for adding approved address
   mapping (uint => address) zombieApprovals;
